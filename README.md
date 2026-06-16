@@ -6,6 +6,10 @@ as `interview`, `solo`, `panel`, or `narrative` using labeled examples and an LL
 ## Setup
 
 ```bash
+python -m venv .venv
+source .venv/bin/activate     # Mac/Linux
+# or: .venv\Scripts\activate  # Windows
+
 pip install -r requirements.txt
 cp .env.example .env
 # Add your GROQ_API_KEY to .env

@@ -157,6 +157,7 @@ Before the classifier works, you need to complete the milestones:
                         label="Episode title (optional — for your reference)",
                         placeholder="e.g. Chef Marcus Lin on What Restaurant Culture Gets Wrong About Burnout",
                         lines=1,
+                        interactive=True,
                     )
                     description_box = gr.Textbox(
                         label="Episode description",
