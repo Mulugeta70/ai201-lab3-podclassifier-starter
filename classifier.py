@@ -99,10 +99,22 @@ def classify_episode(description: str, labeled_examples: list[dict]) -> dict:
             stripped = line.strip()
             if stripped.lower().startswith("label:"):
                 candidate = stripped.split(":", 1)[1].strip().lower()
+                # Strip markdown formatting like **bold** or *italic*
+                candidate = candidate.strip("*_")
                 if candidate in VALID_LABELS:
                     label = candidate
             elif stripped.lower().startswith("reasoning:"):
                 reasoning = stripped.split(":", 1)[1].strip()
+
+        # Fallback: if structured parse didn't find a valid label, scan every
+        # word in the response for a valid label (handles unexpected formats)
+        if label == "unknown":
+            words = text.lower().split()
+            for word in words:
+                clean = word.strip("*_.,!?\"'()")
+                if clean in VALID_LABELS:
+                    label = clean
+                    break
 
         return {"label": label, "reasoning": reasoning}
 
